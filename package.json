@@ -1,5 +1,5 @@
 {
-  "name": "webpack-starter",
+  "name": "eupators-dropdown-menu",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -25,6 +25,7 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "axios": "^0.26.1"
+    "axios": "^0.26.1",
+    "boxicons": "^2.1.4"
   }
 }
