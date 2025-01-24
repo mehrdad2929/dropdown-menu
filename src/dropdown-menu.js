@@ -11,6 +11,7 @@ import './styles/dropdown.css';
   styleElement.textContent = dropdownStyles;
   document.head.appendChild(styleElement);
 }*/
+
 export function createDropdownMenu(options = {}) {
     // Create the link element for boxicons
     const linkElement = document.createElement('link');

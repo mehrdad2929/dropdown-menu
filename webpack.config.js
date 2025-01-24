@@ -1,57 +1,64 @@
-import { resolve } from 'path'
+
+import { fileURLToPath } from 'url'
+import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-export const mode = 'development'
-export const entry = {
-  bundle: resolve(__dirname, 'src/dropdown-menu.js'),
-}
-export const output = {
-  path: resolve(__dirname, 'dist'),
-  filename: '[name][contenthash].js',
-  clean: true,
-  assetModuleFilename: '[name][ext]',
-}
-export const devtool = 'source-map'
-export const devServer = {
-  static: {
-    directory: resolve(__dirname, 'dist'),
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+export default {
+  mode: 'development',
+  entry: {
+    bundle: path.resolve(__dirname, 'src/index.js'),
   },
-  port: 3000,
-  open: true,
-  hot: true,
-  compress: true,
-  historyApiFallback: true,
-}
-export const module = {
-  rules: [
-    {
-      test: /\.css$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name][contenthash].js',
+    clean: true,
+    assetModuleFilename: '[name][ext]',
+  },
+  devtool: 'source-map',
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
     },
-    {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env'],
+    port: 3000,
+    open: true,
+    hot: true,
+    compress: true,
+    historyApiFallback: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
         },
       },
-    },
-    {
-      test: /\.(png|svg|jpg|jpeg|gif)$/i,
-      type: 'asset/resource',
-    },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Dropdown-menu',
+      filename: 'index.html',
+      template: 'src/template.html',
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerPort: 8888, // Use a different port
+    }),
   ],
 }
-export const plugins = [
-  new HtmlWebpackPlugin({
-    title: 'Webpack App',
-    filename: 'index.html',
-    template: 'src/template.html',
-  }),
-  new BundleAnalyzerPlugin({
-    analyzerPort: 8889, // Use a different port
-  }),
-]
